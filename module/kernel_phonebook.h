@@ -13,12 +13,5 @@ struct pb_user_data {
 	char email[PHONEBOOK_EMAIL_MAX_LENGTH];
 };
 
-#define PB_ADD 0
-#define PB_DEL 1
-#define PB_GET 2
-
-#define PB_OK 0
-#define PB_FAIL 1
-
 #endif // KERNEL_PHONEBOOK_H
 

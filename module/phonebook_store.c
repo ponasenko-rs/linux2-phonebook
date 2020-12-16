@@ -21,8 +21,7 @@ int pb_get(const char *surname, unsigned int len, struct pb_user_data *data) {
 
 
 	list_for_each(pos, &pb_entries) {
-		struct pb_entry* entry = NULL;
-		entry = list_entry(pos, struct pb_entry, list_node);
+		struct pb_entry* entry = list_entry(pos, struct pb_entry, list_node);
 
 		if (memcmp(&entry->data.surname, surname, len + 1) == 0) {
 			if (data != NULL) {
@@ -61,8 +60,29 @@ int pb_add(const struct pb_user_data *data) {
 	return 0;
 }
 
-// todo: implement
 int pb_del(const char *surname, unsigned int len) {
+	struct list_head *pos;
+	struct list_head *temp;
+
+	if (pb_get(surname, len, NULL) != 0) {
+		return -1;
+	}
+
+	if (len >= PHONEBOOK_SURNAME_MAX_LENGTH) {
+		return -1;
+	}
+
+
+	list_for_each_safe(pos, temp, &pb_entries) {
+		struct pb_entry* entry = list_entry(pos, struct pb_entry, list_node);
+
+		if (memcmp(&entry->data.surname, surname, len + 1) == 0) {
+			list_del(pos);
+			kfree(entry);
+			return 0;
+		}
+	}
+
 	return -1;
 }
 

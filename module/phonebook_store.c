@@ -15,6 +15,7 @@ static LIST_HEAD(pb_entries);
 int pb_get(const char *surname, unsigned int len, struct pb_user_data *data) {
 	struct list_head *pos;
 
+
 	if (len >= PHONEBOOK_SURNAME_MAX_LENGTH) {
 		return -1;
 	}
